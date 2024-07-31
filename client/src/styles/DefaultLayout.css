@@ -44,3 +44,20 @@
   align-items: center;
   margin-left: 10px;
 }
+
+.logo h1 {
+  font-size: 24px; /* Adjust as needed */
+  transition: font-size 0.3s; /* Smooth transition */
+}
+
+.logo .green {
+  color: green;
+}
+
+.logo .red {
+  color: red;
+}
+
+.logo .white {
+  color: white;
+}

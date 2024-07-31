@@ -2,19 +2,15 @@ const mongoose = require("mongoose");
 
 const itemSchema = mongoose.Schema(
   {
-    name: {
+    Name: {
       type: String,
       required: true,
     },
-    price: {
+    Price: {
       type: Number,
       required: true,
     },
-    category: {
-      type: String,
-      required: true,
-    },
-    image: {
+    Image: {
       type: String,
       required: true,
     },
@@ -25,3 +21,4 @@ const itemSchema = mongoose.Schema(
 const Items = mongoose.model("Items", itemSchema);
 
 module.exports = Items;
+

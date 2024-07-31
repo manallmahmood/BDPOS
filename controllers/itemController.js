@@ -1,40 +1,49 @@
 const itemModel = require("../models/itemModel");
 
-// get items
+// Get items
 const getItemController = async (req, res) => {
   try {
     const items = await itemModel.find();
-    res.status(200).send(items);
+    res.status(200).json(items); // Send JSON response
   } catch (error) {
-    console.log(error);
+    console.error('Error fetching items:', error);
+    res.status(500).json({ message: 'Error fetching items', error: error.message });
   }
 };
 
-//add items
+// Add item
 const addItemController = async (req, res) => {
   try {
     const newItem = new itemModel(req.body);
     await newItem.save();
-    res.status(201).send("Item Created Successfully!");
+    res.status(201).json({ message: 'Item Created Successfully!' });
   } catch (error) {
-    res.status(400).send("error", error);
-    console.log(error);
+    console.error('Error creating item:', error);
+    res.status(400).json({ message: 'Error creating item', error: error.message });
   }
 };
 
-//update item
+// Update item
 const editItemController = async (req, res) => {
   try {
-    const { itemId } = req.body;
-    console.log(itemId);
-    await itemModel.findOneAndUpdate({ _id: itemId }, req.body, {
+    const { itemId, ...updateData } = req.body;
+    if (!itemId) {
+      return res.status(400).json({ message: 'Item ID is required' });
+    }
+
+    const updatedItem = await itemModel.findOneAndUpdate({ _id: itemId }, updateData, {
       new: true,
+      runValidators: true // Ensure validators are run during update
     });
 
-    res.status(201).json("item Updated");
+    if (!updatedItem) {
+      return res.status(404).json({ message: 'Item not found' });
+    }
+
+    res.status(200).json({ message: 'Item Updated', item: updatedItem });
   } catch (error) {
-    res.status(400).send(error);
-    console.log(error);
+    console.error('Error updating item:', error);
+    res.status(400).json({ message: 'Error updating item', error: error.message });
   }
 };
 

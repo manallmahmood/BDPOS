@@ -11,6 +11,7 @@ import {
   UnorderedListOutlined,
 } from "@ant-design/icons";
 import "../styles/DefaultLayout.css";
+
 const { Header, Sider, Content } = Layout;
 
 export default class DefaultLayout extends React.Component {
@@ -29,12 +30,16 @@ export default class DefaultLayout extends React.Component {
       <Layout>
         <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
           <div className="logo">
-            <h1 className="text-center text-light font-wight-bold mt-4">POS</h1>
+            <h1 className="text-center font-weight-bold mt-4">
+              <span className="green">B</span>
+              <span className="red">D</span>
+              <span className="white">POS</span>
+            </h1>
           </div>
           <Menu
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={window.location.pathname}
+            defaultSelectedKeys={[window.location.pathname]}
           >
             <Menu.Item key="/" icon={<HomeOutlined />}>
               <Link to="/">Home</Link>
@@ -46,7 +51,7 @@ export default class DefaultLayout extends React.Component {
               <Link to="/items">Items</Link>
             </Menu.Item>
             <Menu.Item key="/customers" icon={<UserOutlined />}>
-              <Link to="/customers">Cutomers</Link>
+              <Link to="/customers">Customers</Link>
             </Menu.Item>
             <Menu.Item key="/logout" icon={<LogoutOutlined />}>
               Logout

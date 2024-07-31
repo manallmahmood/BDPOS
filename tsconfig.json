@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "skipLibCheck": true,
+      "outDir": "./dist",
+      "allowJs": true
+    },
+    "include": ["*.js"],
+    "exclude": ["node_modules"]
+  }
+  

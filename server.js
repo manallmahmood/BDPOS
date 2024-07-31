@@ -2,31 +2,43 @@ const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const dotanv = require("dotenv");
+const dotenv = require("dotenv");
 const { bgCyan } = require("colors");
 require("colors");
 const connectDb = require("./config/config");
-//dotenv config
-dotanv.config();
-//db config
+
+// dotenv config
+dotenv.config();
+
+// Set Mongoose strictQuery option
+const mongoose = require("mongoose");
+mongoose.set('strictQuery', false); // or true, based on your preference
+
+// db config
 connectDb();
-//rest object
+
+// rest object
 const app = express();
 
-//middlwares
+// middlewares
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 
-//routes
+// Root route handler
+app.get('/', (req, res) => {
+  res.send('Welcome to the API!');
+});
+
+// API routes
 app.use("/api/items", require("./routes/itemRoutes"));
 
-//port
+// port
 const PORT = process.env.PORT || 8080;
 
-//listen
+// listen
 app.listen(PORT, () => {
   console.log(`Server Running On Port ${PORT}`.bgCyan.white);
 });
